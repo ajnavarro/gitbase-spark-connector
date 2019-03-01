@@ -16,6 +16,8 @@ object UastMode extends CustomUDF with Logging {
   def get(mode: String = "annotated",
           content: Array[Byte],
           lang: String = ""): Option[Array[Byte]] = {
+    // TODO remove when bblfsh updates scala client to latest version
+    throwUnsupportedException(name)
 
     if (content == null || content.isEmpty) {
       None

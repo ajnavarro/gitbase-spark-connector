@@ -16,7 +16,10 @@ object Uast extends CustomUDF with Logging {
 
   def get(content: Array[Byte],
           lang: String = "",
-          query: String = ""): Option[Array[Byte]] =
+          query: String = ""): Option[Array[Byte]] = {
+    // TODO remove when bblfsh updates scala client to latest version
+    throwUnsupportedException(name)
+
     try {
       if (content == null || content.isEmpty) {
         return None
@@ -47,4 +50,5 @@ object Uast extends CustomUDF with Logging {
         log.error(s"couldn't get UAST: $e")
         None
     }
+  }
 }

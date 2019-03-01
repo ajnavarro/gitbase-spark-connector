@@ -11,6 +11,9 @@ object UastChildren extends CustomUDF {
   override def function: UserDefinedFunction = udf(get _)
 
   def get(marshaledNodes: Array[Byte]): Option[Array[Byte]] = {
+    // TODO remove when bblfsh updates scala client to latest version
+    throwUnsupportedException(name)
+
     val nodes = BblfshUtils.unmarshalNodes(marshaledNodes).getOrElse(Seq.empty)
     val children = nodes.flatMap(_.children)
     BblfshUtils.marshalNodes(children)

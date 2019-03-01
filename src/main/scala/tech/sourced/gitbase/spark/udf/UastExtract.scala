@@ -1,9 +1,9 @@
 package tech.sourced.gitbase.spark.udf
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import gopkg.in.bblfsh.sdk.v1.uast.generated.Position
 import org.apache.spark.sql.expressions.UserDefinedFunction
 import org.apache.spark.sql.functions.udf
-import com.fasterxml.jackson.databind.ObjectMapper
 
 import scala.collection.JavaConverters.asJavaIterableConverter
 
@@ -17,6 +17,9 @@ object UastExtract extends CustomUDF {
   override def function: UserDefinedFunction = udf(extract _)
 
   def extract(marshaledNodes: Array[Byte], key: String): Option[Array[Byte]] = {
+    // TODO remove when bblfsh updates scala client to latest version
+    throwUnsupportedException(name)
+
     if (Option(key).getOrElse("") == "" ||
       Option(marshaledNodes).getOrElse(Array.emptyByteArray).length == 0) {
       None

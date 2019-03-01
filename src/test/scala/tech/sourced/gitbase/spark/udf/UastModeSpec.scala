@@ -25,7 +25,8 @@ class UastModeSpec extends BaseUdfSpec {
     uastModeDf.schema.fields should contain(StructField("uast", BinaryType))
   }
 
-  it should "retrieve UASTs with specific mode" in {
+  // TODO add test again when bblfsh updates scala client to latest version
+  it should "retrieve UASTs with specific mode" ignore {
     info("Note that the uast_mode udf checks that the given mode is " +
       "one of (annotated, semantic, native).\nEven though, it will always" +
       " return an annotated uast since org.bblfsh.client.BblfshClient " +

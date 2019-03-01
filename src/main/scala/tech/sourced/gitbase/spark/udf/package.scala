@@ -2,6 +2,7 @@ package tech.sourced.gitbase.spark
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import org.apache.spark.SparkException
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.SparkSession
 
@@ -25,6 +26,10 @@ package object udf {
     ParseCommitParents
   )
 
+
+  private[udf] def throwUnsupportedException(name:String) =
+    throw new SparkException(s"Function with name $name is not supported on Spark side. " +
+    s"Please change your query to make it being executed on gitbase.")
 
   def isSupported(name: String): Boolean = gitbaseUdfs.exists(f => f.name == name)
 
